@@ -17,7 +17,7 @@ This is what will be in the email. this can be a single line, can be HTML in the
 Recommend using HTML saved as a variable.
 
 .EXAMPLE
-Send-MailMessage -from "me@domain.com" -recipient "You@domain.com" -subject "This is my Subject" -content "<h2>This is a Header 2 HTML line of text</h2>"
+Send-GraphMailMessage -from "me@domain.com" -recipient "You@domain.com" -subject "This is my Subject" -content "<h2>This is a Header 2 HTML line of text</h2>"
 
 .NOTES
 This requires that you have already retrieved a $token for MS Graph access, and that your App Registrion has the Mail.Send Application permission granted. 
@@ -26,7 +26,7 @@ Author: Smitty
 Date Updated: 2/15/2023
 
 #>
-function Send-MailMessage {
+function Send-GraphMailMessage {
     [CmdletBinding()]
     Param (
         [string]$from = "myEmail@domain.com",   
