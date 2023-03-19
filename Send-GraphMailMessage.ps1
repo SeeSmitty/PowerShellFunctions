@@ -31,7 +31,7 @@ function Send-GraphMailMessage {
     Param (
         [string]$from = "myEmail@domain.com",   
         [Parameter(Mandatory)][string]$subject,
-        [Parameter(Mandatory)][string]$recipient, #person who has delegate access
+        [Parameter(Mandatory)][string]$recipient, 
         [Parameter(Mandatory)]$content
     )
     begin {
