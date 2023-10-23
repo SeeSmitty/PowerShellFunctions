@@ -12,9 +12,9 @@ include this function in your script to make it easier to start over without hav
 #Begin Example Script
 
 function Test-Finished {
-    $finished = Read-Host "Do Need to forward any more phone numbers? Y or N" 
+    $finished = Read-Host "Do Need to assign any more licenses? Y or N" 
     IF ($finished -like "Y") {
-        Start-LoopFromBeginning
+        Start-AssignLicense
     }
     ELSE {
         Write-Host "Disconnecting from Graph" -ForegroundColor Blue
@@ -23,13 +23,13 @@ function Test-Finished {
 }
 
 
-function Start-LoopFromBeginning {
+function Start-AssignLicense {
     try {
-        foreach ($item in $collection) {
-            Write-host "This is my Loop"
-        }
-        #Include the Test Finished function after the loop
-
+        $input = Read-Host "What user do you want to assign a license to?"
+        $user = Get-MgUser -ConsistencyLevel eventual -Search '"DisplayName:$input"'
+        $EmsSku = Get-MgSubscribedSku -All | Where SkuPartNumber -eq 'EMSPREMIUM'
+        Set-MgUserLicense -UserId $user.id -AddLicenses @{SkuId = $EmsSku.SkuId} -RemoveLicenses @()
+        #Run the test Finished function to either quit or restart the loop
         Test-Finished
     }
     catch {
@@ -42,10 +42,11 @@ function Start-LoopFromBeginning {
 Connect-Graph
 
 #begin Loop
-Start-LoopFromBeginning
+Start-AssignLicense
 
 .LINK
 https://seesmitty.com/how-to-script-call-forwarding-in-microsoft-teams-voice/#create-call-account
+https://seesmitty.com/streamline-your-scripting-3-more-powershell-functions-i-find-helpful/
 
 .NOTES
 Author: Smitty
