@@ -1,5 +1,4 @@
-function Remove-NetworkPrinter {
-    <#
+<#
     .SYNOPSIS
     Removes a network printer based on the provided IP address or printer name.
 
@@ -22,7 +21,9 @@ function Remove-NetworkPrinter {
     Date: 10/3/2023
     Version: 1.0
     #>
-
+    
+function Remove-NetworkPrinter {
+    
     param (
         [Parameter()]
         [string]$printer
